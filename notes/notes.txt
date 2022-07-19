@@ -7,9 +7,17 @@ in devs for hire example:
 useEffect(()=>{
 //ajax request to get dev data
 axios
-.get('API URL')
-.then((res)==> console.log(res))
-})
+.get('API URL') <- we can add literals to our URL and add it to our dependency array
+.then((res)==> setDevs(res.data.data))
+}, []) <- we need to include this empty array lest we create an infinite loop bc in our code we make an ajax request every time the state changes and the state is constantly changing.
+
+^ axios returns a whole object so we have to search into the keys to find the data
+
+example:
+.get('htps://api.github.com/users/${dev.gitHub}/repose)
+
+this returns a promise that says don't stop until this information is complete, go ahead and load
+-use effect is going to render after your component runs the first time and we can also put some conditions in place to control when it renders
 
 Why Axios?
 - fetch is great but has limitations that are somewhat annoying... for example you have to have two .thens 
