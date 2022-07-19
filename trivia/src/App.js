@@ -11,12 +11,14 @@ function App() {
     console.log(categories)
   },[])
   return (
-    categories.map((category, index) => (
-      <select>
-        <option key= {category.name}>{category.id}: {category.name}</option>
-      </select>
-    ))
-  );
+    <>
+    <p>Choose a Category:</p>
+    <select>
+    {categories.map((category) => (
+        <option key= {category.id} value ={category.name}> {category.name}</option>
+    ))}
+    </select>
+  </>);
 }
 
 export default App;
