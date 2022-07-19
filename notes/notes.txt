@@ -1,0 +1,17 @@
+useEffect() hooks are meant to run after every render
+- a render is when a component runs and returns its JSX
+- we describe what is going to happen in our component wheen it happens
+
+in devs for hire example:
+
+useEffect(()=>{
+//ajax request to get dev data
+axios
+.get('API URL')
+.then((res)==> console.log(res))
+})
+
+Why Axios?
+- fetch is great but has limitations that are somewhat annoying... for example you have to have two .thens 
+- in axios we don't have to do that second step
+- also has a better way of handling 404's 
