@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import TriviaPage from './triviaPage'
 
 export default function Categories(){
     const [categories, setCategories] = useState([])
@@ -34,6 +33,7 @@ export default function Categories(){
     <>
     <p>Choose a Category:</p>
     <select onChange={(e)=> handleSelectedCategory(e.target.value)}>
+    <option key="choose an option"> Select A Category</option>
     {categories.map((category) => (
         <option key= {category.id} value = {category.id} id={category.id}> {category.name}</option>
     ))}
@@ -43,17 +43,15 @@ export default function Categories(){
     
     <div>
     {triviaQuestions.map ((question)=> (
-        <div>
         <p key={question.question}> {question.question}
         <br/>
         <br/>
         <div className ="buttons">
-        <button key={question.correct_answer}>{question.correct_answer}</button>
+        <button onClick={()=> console.log({question})} key={question.correct_answer}>{question.correct_answer}</button>
         {question.incorrect_answers.map((answer) => (
             <button key={answer.incorrect_answers}>{answer} </button>
         ))}</div>
         </p>
-        </div>
     ))}
     </div>: ("")}
     </>
