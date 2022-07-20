@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import QuestionPage from './questionPage'
 
 export default function Categories(){
     const [categories, setCategories] = useState([])
@@ -8,6 +9,7 @@ export default function Categories(){
     const [triviaQuestions, setTriviaQuestions] = useState([])
     const [userAnswerBank, setUserAnswerBank] = useState([])
     const [correctAnswerBank, setCorrectAnswerBank] = useState([])
+    const [answered, setAnswered] = useState(true)
 
     const handleSelectedCategory=(props)=>{
     // this creates the URL based off of the ID of the category
@@ -26,6 +28,7 @@ export default function Categories(){
     const handleUserAnswer = (props) =>{
         let userAnswer = props
         let temporaryBank = userAnswerBank.concat(userAnswer)
+        setAnswered(true)
         setUserAnswerBank(temporaryBank)
     }
 
@@ -40,14 +43,9 @@ export default function Categories(){
         // making an ajax call that uses the value of the selectedCategory as a part of the url
         axios
         .get(categoryURL)
-        .then((res) => setTriviaQuestions(res.data.results))
-    },[categoryURL])
-
-    useEffect(() => {
-    // making another ajax call to get the correct answers from the chosen category to make the correct answer array
-    axios
-    .get(categoryURL)
-    .then((res) => makeCorrectAnswerBank(res.data.results))
+        .then((res) => {
+            setTriviaQuestions(res.data.results)
+            makeCorrectAnswerBank(res.data.results)})
     },[categoryURL])
 
     return (
@@ -60,23 +58,9 @@ export default function Categories(){
     ))}
     </select>
 
-    {triviaQuestions ? 
+    { selectedCategory? 
     
-    <div key = {triviaQuestions.id}>
-    {triviaQuestions.map ((question)=> (
-        <div key ={question.question}>
-{/* 
-        {correctAnswerBank.push(question.correct_answer)} */}
-
-        <p key={question.question}> {question.question}</p>
-        <div className ="buttons" key ={question.correct_answer}>
-        <button onClick={(e)=> handleUserAnswer(e.target.textContent)} key={question.correct_answer}>{question.correct_answer}</button>
-        {question.incorrect_answers.map((answer) => (
-            <button onClick={(e)=> handleUserAnswer(e.target.textContent)} key={answer.incorrect_answers}>{answer} </button>
-        ))}</div>
-        </div>
-    ))}
-    </div>: ("")}
+    (<QuestionPage triviaQuestions={triviaQuestions}/>) : ("")}
     </>
     );
 
