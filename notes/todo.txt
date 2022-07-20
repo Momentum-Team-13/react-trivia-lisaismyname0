@@ -1,1 +1,3 @@
 [x]npm install axios
+[]randomize questions
+[]make questions into radio button
