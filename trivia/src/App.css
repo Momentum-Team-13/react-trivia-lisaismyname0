@@ -39,4 +39,10 @@
 
 .buttons{
   display: flex;
+  order: 3;
+
+}
+
+buttons{
+  order: random;
 }

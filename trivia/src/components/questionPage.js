@@ -13,8 +13,20 @@ export default function QuestionPage ({triviaQuestions, correctAnswerBank}){
 
     console.log(correctAnswerBank)
 
+    const shuffleButtons = () => {
+        let buttons = document.getElementsByClassName("buttons")
+        console.log(buttons)
+        for (let i = 0; i < buttons.length; i++){
+            let target = Math.floor(Math.random() * buttons.length -1) + 1;
+            let target2 = Math.floor(Math.random() * buttons.length -1) +1;
+            buttons[target].before(buttons[target2]);
+        }
+
+    }
+
 return(
     <div>
+    <button onClick={() => shuffleButtons()}> shuffle buttons</button>
     <div key = {triviaQuestions.id}>
     {triviaQuestions.map ((question)=> (
         <div key ={question.question}>
