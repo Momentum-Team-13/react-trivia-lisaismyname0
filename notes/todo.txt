@@ -1,3 +1,4 @@
 [x]npm install axios
 []randomize questions
 []make questions into radio button
+[] make a correct answers array as well as selected answers array that way I am able to score based off how many off the answers in the array are the same
