@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import TriviaPage from './triviaPage'
 
 export default function Categories(){
     const [categories, setCategories] = useState([])
     const [selectedCategory, setSelectedCategory] = useState(null)
     const [categoryURL, setCategoryURL] = useState(`https://opentdb.com/api.php?amount=10&category=${selectedCategory}`)
+    const [triviaQuestions, setTriviaQuestions] = useState([])
 
     const handleSelectedCategory=(props)=>{
     // this creates the URL based off of the ID of the category
@@ -25,8 +27,9 @@ export default function Categories(){
         // attempting to make ajax call that uses the value of the selectedCategory as a part of the url
         axios
         .get(categoryURL)
-        .then((res) => console.log(res.data.results, categoryURL))
+        .then((res) => setTriviaQuestions(res.data.results))
     },[categoryURL])
+    console.log(categoryURL)
     return (
     <>
     <p>Choose a Category:</p>
@@ -35,5 +38,15 @@ export default function Categories(){
         <option key= {category.id} value = {category.id} id={category.id}> {category.name}</option>
     ))}
     </select>
-    </>);
+
+    {triviaQuestions ? 
+    
+    <div>
+    {triviaQuestions.map ((question)=> (
+        <p key={question.question}> {question.question}</p>
+    ))}
+    </div>: ("")}
+    </>
+    );
+
 }
