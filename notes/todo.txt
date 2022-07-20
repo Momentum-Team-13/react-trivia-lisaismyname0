@@ -2,3 +2,8 @@
 []randomize questions
 []make questions into radio button
 [] make a correct answers array as well as selected answers array that way I am able to score based off how many off the answers in the array are the same
+[]handle difficulty levels:
+{easy ? (
+    <div>{questions.difficulty_level.easy}
+)}
+[]disable buttons if question answered

@@ -6,7 +6,8 @@ export default function Categories(){
     const [selectedCategory, setSelectedCategory] = useState(null)
     const [categoryURL, setCategoryURL] = useState(`https://opentdb.com/api.php?amount=10&category=${selectedCategory}`)
     const [triviaQuestions, setTriviaQuestions] = useState([])
-    const userAnswerBank = []
+    const [userAnswerBank, setUserAnswerBank] = useState([])
+    const [correctAnswerBank, setCorrectAnswerBank] = useState([])
 
     const handleSelectedCategory=(props)=>{
     // this creates the URL based off of the ID of the category
@@ -15,10 +16,17 @@ export default function Categories(){
         setCategoryURL(`https://opentdb.com/api.php?amount=10&category=${categoryID}`)
     }
 
+    const makeCorrectAnswerBank = (props) =>{
+        let triviaQuestions = props
+        let correctAnswers = triviaQuestions.map ((question)=> (question.correct_answer
+        ))
+        setCorrectAnswerBank(correctAnswers)
+    }
+
     const handleUserAnswer = (props) =>{
         let userAnswer = props
-        userAnswerBank.push(userAnswer)
-        console.log(userAnswerBank)
+        let temporaryBank = userAnswerBank.concat(userAnswer)
+        setUserAnswerBank(temporaryBank)
     }
 
     useEffect(() => {
@@ -29,12 +37,19 @@ export default function Categories(){
     },[])
 
     useEffect(() => {
-        // attempting to make ajax call that uses the value of the selectedCategory as a part of the url
+        // making an ajax call that uses the value of the selectedCategory as a part of the url
         axios
         .get(categoryURL)
         .then((res) => setTriviaQuestions(res.data.results))
     },[categoryURL])
-    console.log(categoryURL)
+
+    useEffect(() => {
+    // making another ajax call to get the correct answers from the chosen category to make the correct answer array
+    axios
+    .get(categoryURL)
+    .then((res) => makeCorrectAnswerBank(res.data.results))
+    },[categoryURL])
+
     return (
     <>
     <p>Choose a Category:</p>
@@ -46,12 +61,15 @@ export default function Categories(){
     </select>
 
     {triviaQuestions ? 
-    <div>
+    
+    <div key = {triviaQuestions.id}>
     {triviaQuestions.map ((question)=> (
         <div key ={question.question}>
+{/* 
+        {correctAnswerBank.push(question.correct_answer)} */}
+
         <p key={question.question}> {question.question}</p>
-        <br/>
-        <div className ="buttons">
+        <div className ="buttons" key ={question.correct_answer}>
         <button onClick={(e)=> handleUserAnswer(e.target.textContent)} key={question.correct_answer}>{question.correct_answer}</button>
         {question.incorrect_answers.map((answer) => (
             <button onClick={(e)=> handleUserAnswer(e.target.textContent)} key={answer.incorrect_answers}>{answer} </button>
