@@ -60,7 +60,7 @@ export default function Categories(){
 
     { selectedCategory? 
     
-    (<QuestionPage triviaQuestions={triviaQuestions}/>) : ("")}
+    (<QuestionPage correctAnswerBank={correctAnswerBank} triviaQuestions={triviaQuestions}/>) : ("")}
     </>
     );
 
