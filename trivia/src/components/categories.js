@@ -43,7 +43,12 @@ export default function Categories(){
     
     <div>
     {triviaQuestions.map ((question)=> (
-        <p key={question.question}> {question.question}</p>
+        <li key={question.question}> {question.question}
+        <ul key={question.correct_answer}>{question.correct_answer}</ul>
+        {question.incorrect_answers.map((answer) => (
+            <ul key={answer.incorrect_answers}>{answer} </ul>
+        ))}
+        </li>
     ))}
     </div>: ("")}
     </>
