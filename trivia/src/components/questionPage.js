@@ -5,28 +5,28 @@ import NextQuestion from './nextQuestion'
 export default function QuestionPage ({triviaQuestions, correctAnswerBank}){
 
     const [start, setStart] = useState(true)
+    const [index, setIndex] = useState(0)
     const [nextQuestion, setNextQuestion] = useState(false)
 
 
     const oneQuestion = () =>{
-        let i = 0
-        setStart(triviaQuestions[i])
-        if (i>=0){
-        setNextQuestion(triviaQuestions[i+1])}
+        setStart(triviaQuestions[{index}])
         }
 
 return(
 
     <div>
     { start ? (<div>
-        <OneQuestion question ={triviaQuestions[0]}/>
+        <OneQuestion index={index} questions ={triviaQuestions}/>
     </div>) : ("Goodbye") }
+    
+    <p>current index is: {index}</p>
 
     {nextQuestion ? (<div>
         <NextQuestion question ={triviaQuestions[+1]}/>
     </div>):("")}
 
-    <button onClick={(e)=> oneQuestion()}> Next question </button>
+    <button onClick={()=>setStart({index}+1)}> Next question </button>
     {/* <button onClick={() => shuffleButtons()}> shuffle buttons</button>
     <div key = {triviaQuestions.id}>
     {triviaQuestions.map ((question)=> (

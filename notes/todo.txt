@@ -11,3 +11,4 @@
     Tally Score
 }
 []{answered ? (Question)  : you chose ""}
+[]count function w/in state
