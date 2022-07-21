@@ -6,12 +6,20 @@ export default function QuestionPage ({triviaQuestions, correctAnswerBank}){
 
     const [start, setStart] = useState(true)
     const [index, setIndex] = useState(0)
-    const [nextQuestion, setNextQuestion] = useState(false)
+    const [nextQuestion, setNextQuestion]= useState(false)
 
 
     const oneQuestion = () =>{
         setStart(triviaQuestions[{index}])
         }
+
+    const handleNext = () => {
+        console.log(`index is ${index}`)
+        let nextIndex = index+1
+        console.log(`next index is ${nextIndex}`)
+        setIndex({nextIndex})
+        setNextQuestion(true)
+    }
 
 return(
 
@@ -19,14 +27,12 @@ return(
     { start ? (<div>
         <OneQuestion index={index} questions ={triviaQuestions}/>
     </div>) : ("Goodbye") }
-    
-    <p>current index is: {index}</p>
 
     {nextQuestion ? (<div>
         <NextQuestion question ={triviaQuestions[+1]}/>
     </div>):("")}
 
-    <button onClick={()=>setStart({index}+1)}> Next question </button>
+    <button onClick={()=>handleNext()}> Next question </button>
     {/* <button onClick={() => shuffleButtons()}> shuffle buttons</button>
     <div key = {triviaQuestions.id}>
     {triviaQuestions.map ((question)=> (
