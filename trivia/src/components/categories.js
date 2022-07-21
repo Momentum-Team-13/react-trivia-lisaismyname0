@@ -10,9 +10,6 @@ export default function Categories(){
     const [triviaQuestions, setTriviaQuestions] = useState([])
     const [userAnswerBank, setUserAnswerBank] = useState([])
     const [correctAnswerBank, setCorrectAnswerBank] = useState([])
-    const [answered, setAnswered] = useState(true)
-
-    
 
     const handleSelectedCategory=(props)=>{
     // this creates the URL based off of the ID of the category
@@ -32,10 +29,8 @@ export default function Categories(){
     const handleUserAnswer = (props) =>{
         let userAnswer = props
         let temporaryBank = userAnswerBank.concat(userAnswer)
-        setAnswered(true)
         setUserAnswerBank(temporaryBank)
     }
-
 
     useEffect(() => {
         // to make ajax call that will return list of trivia categories that i will then use to populate my dropdown menu
@@ -65,10 +60,7 @@ export default function Categories(){
 
     { selectedCategory?
 
-
-    
     (<QuestionPage correctAnswerBank={correctAnswerBank} triviaQuestions={triviaQuestions}/>) : ("")}
-
 
     </>
     );

@@ -1,38 +1,28 @@
 import { useState } from 'react'
 import OneQuestion from './oneQuestion'
-import NextQuestion from './nextQuestion'
 
 export default function QuestionPage ({triviaQuestions, correctAnswerBank}){
 
     const [start, setStart] = useState(true)
     const [index, setIndex] = useState(0)
-    const [nextQuestion, setNextQuestion]= useState(false)
-
-
-    const oneQuestion = () =>{
-        setStart(triviaQuestions[{index}])
-        }
+    const [correct, setCorrect] = useState(false)
+    const [incorrect, setIncorrect] = useState(false)
 
     const handleNext = () => {
-        console.log(`index is ${index}`)
-        let nextIndex = index+1
-        console.log(`next index is ${nextIndex}`)
-        setIndex({nextIndex})
-        setNextQuestion(true)
+        setIndex(index + 1)
+        setCorrect(false)
+        setIncorrect(false)
     }
 
 return(
 
     <div>
     { start ? (<div>
-        <OneQuestion index={index} questions ={triviaQuestions}/>
+        <OneQuestion index={index} questions ={triviaQuestions} handleNext={() => setCorrect(false)}/>
     </div>) : ("Goodbye") }
 
-    {nextQuestion ? (<div>
-        <NextQuestion question ={triviaQuestions[+1]}/>
-    </div>):("")}
-
     <button onClick={()=>handleNext()}> Next question </button>
+
     {/* <button onClick={() => shuffleButtons()}> shuffle buttons</button>
     <div key = {triviaQuestions.id}>
     {triviaQuestions.map ((question)=> (
