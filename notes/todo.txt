@@ -14,15 +14,19 @@
 []count function w/in state
 []SHUFFLEBUTTONS
 {
-    // const shuffleButtons = () => {
-    //     let buttons = document.getElementsById=('answerButton')
-    //     console.log(buttons)
-    //     for (let i = 0; i < buttons.length; i++){
-    //         let target = Math.floor(Math.random() * buttons.length -1) + 1;
-    //         let target2 = Math.floor(Math.random() * buttons.length -1) +1;
-    //         console.log(buttons[target])
-    //         console.log(buttons[target2]);
-    //     }}
+
+        // const shuffleButtons = () => {
+    // let buttons = document.getElementsById('answerButton')
+    // console.log(buttons)
+    // for (let i = 0; i < buttons.length; i++){
+    //     let target = Math.floor(Math.random() * buttons.length -1) + 1;
+    //     let target2 = Math.floor(Math.random() * buttons.length -1) +1;
+    //     console.log(buttons[target].beforebuttons[target2]);
+    // }}
+
+
+    // shuffleButtons()
+
 
      <button onClick={() => shuffleButtons()}> shuffle buttons</button>
 

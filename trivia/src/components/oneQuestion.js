@@ -18,8 +18,6 @@ export default function OneQuestion ({index, questions, correctAnswerBank, setIn
         seeIfCorrect(userAnswer)
     }
 
-
-
     const handleNext = () => {
         console.log(correctAnswerBank.length)
         setCorrect(false)
