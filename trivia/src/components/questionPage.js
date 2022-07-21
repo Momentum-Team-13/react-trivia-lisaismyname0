@@ -1,8 +1,11 @@
 import { useState } from 'react'
+import OneQuestion from './oneQuestion'
 
 export default function QuestionPage ({triviaQuestions, correctAnswerBank}){
     const [answered, setAnswered] = useState(true)
     const [userAnswerBank, setUserAnswerBank]= useState([])
+    const [singleQuestion, setSingleQuestion] = useState(0)
+    const [start, setStart] = useState(true)
 
     const handleUserAnswer = (props) =>{
         let userAnswer = props
@@ -11,7 +14,11 @@ export default function QuestionPage ({triviaQuestions, correctAnswerBank}){
         setUserAnswerBank(temporaryBank)
     }
 
-    console.log(correctAnswerBank)
+    const oneQuestion = () =>{
+        let firstQuestion = triviaQuestions[0]
+        setStart(firstQuestion)
+    }
+
 
     const shuffleButtons = () => {
         let buttons = document.getElementsByClassName("buttons")
@@ -25,8 +32,14 @@ export default function QuestionPage ({triviaQuestions, correctAnswerBank}){
     }
 
 return(
+
     <div>
-    <button onClick={() => shuffleButtons()}> shuffle buttons</button>
+    { start ? (<div>
+        <OneQuestion question ={triviaQuestions[0]}/>
+    </div>) : ("Goodbye") }
+
+
+    {/* <button onClick={() => shuffleButtons()}> shuffle buttons</button>
     <div key = {triviaQuestions.id}>
     {triviaQuestions.map ((question)=> (
         <div key ={question.question}>
@@ -40,7 +53,7 @@ return(
     </> :('')}
         </div>
     ))}
-    </div>
+    </div> */}
 
     </div>
 )

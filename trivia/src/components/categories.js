@@ -6,6 +6,7 @@ export default function Categories(){
     const [categories, setCategories] = useState([])
     const [selectedCategory, setSelectedCategory] = useState(null)
     const [categoryURL, setCategoryURL] = useState(`https://opentdb.com/api.php?amount=10&category=${selectedCategory}`)
+
     const [triviaQuestions, setTriviaQuestions] = useState([])
     const [userAnswerBank, setUserAnswerBank] = useState([])
     const [correctAnswerBank, setCorrectAnswerBank] = useState([])
@@ -16,6 +17,7 @@ export default function Categories(){
         let categoryID = props
         setSelectedCategory(categoryID)
         setCategoryURL(`https://opentdb.com/api.php?amount=10&category=${categoryID}`)
+        
     }
 
     const makeCorrectAnswerBank = (props) =>{
@@ -31,6 +33,7 @@ export default function Categories(){
         setAnswered(true)
         setUserAnswerBank(temporaryBank)
     }
+
 
     useEffect(() => {
         // to make ajax call that will return list of trivia categories that i will then use to populate my dropdown menu
@@ -59,8 +62,11 @@ export default function Categories(){
     </select>
 
     { selectedCategory? 
+
     
     (<QuestionPage correctAnswerBank={correctAnswerBank} triviaQuestions={triviaQuestions}/>) : ("")}
+
+
     </>
     );
 
