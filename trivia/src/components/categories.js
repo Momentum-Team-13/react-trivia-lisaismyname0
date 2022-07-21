@@ -12,6 +12,8 @@ export default function Categories(){
     const [correctAnswerBank, setCorrectAnswerBank] = useState([])
     const [answered, setAnswered] = useState(true)
 
+    
+
     const handleSelectedCategory=(props)=>{
     // this creates the URL based off of the ID of the category
         let categoryID = props
@@ -61,7 +63,8 @@ export default function Categories(){
     ))}
     </select>
 
-    { selectedCategory? 
+    { selectedCategory?
+
 
     
     (<QuestionPage correctAnswerBank={correctAnswerBank} triviaQuestions={triviaQuestions}/>) : ("")}

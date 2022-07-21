@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import OneQuestion from './oneQuestion'
+import NextQuestion from './nextQuestion'
 
 export default function QuestionPage ({triviaQuestions, correctAnswerBank}){
 
@@ -14,18 +15,6 @@ export default function QuestionPage ({triviaQuestions, correctAnswerBank}){
         setNextQuestion(triviaQuestions[i+1])}
         }
 
-
-    const shuffleButtons = () => {
-        let buttons = document.getElementsByClassName("buttons")
-        console.log(buttons)
-        for (let i = 0; i < buttons.length; i++){
-            let target = Math.floor(Math.random() * buttons.length -1) + 1;
-            let target2 = Math.floor(Math.random() * buttons.length -1) +1;
-            buttons[target].before(buttons[target2]);
-        }
-
-    }
-
 return(
 
     <div>
@@ -34,7 +23,7 @@ return(
     </div>) : ("Goodbye") }
 
     {nextQuestion ? (<div>
-        <OneQuestion question ={triviaQuestions[+1]}/>
+        <NextQuestion question ={triviaQuestions[+1]}/>
     </div>):("")}
 
     <button onClick={(e)=> oneQuestion()}> Next question </button>
