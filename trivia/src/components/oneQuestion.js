@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-export default function OneQuestion ({index, questions})
+export default function OneQuestion ({index, questions, correctAnswerBank, setIndex})
 {
     console.log(index, questions)
     let currentQuestion= questions[index]
@@ -16,6 +16,15 @@ export default function OneQuestion ({index, questions})
         let temporaryBank = userAnswerBank.concat(userAnswer)
         setUserAnswerBank(temporaryBank)
         seeIfCorrect(userAnswer)
+    }
+
+
+
+    const handleNext = () => {
+        console.log(correctAnswerBank.length)
+        setCorrect(false)
+        setIncorrect(false)
+        setIndex()
     }
 
     const seeIfCorrect=(userAnswer)=>{
@@ -42,11 +51,13 @@ return(
         </div>}
 
     <div>{correct ? ("You chose the correct answer!"):("")}</div>
-    
+
     {incorrect ? (<div>
 Sorry the correct answer was: {currentQuestion.correct_answer} 
     </div>): ("")}
-    </div>
+
+    <button onClick={()=>handleNext()}> Next question </button>
+    </div>    
 )
 
 }

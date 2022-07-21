@@ -23,6 +23,8 @@
     //         console.log(buttons[target])
     //         console.log(buttons[target2]);
     //     }}
-    
+
+     <button onClick={() => shuffleButtons()}> shuffle buttons</button>
+
     
 }
