@@ -10,6 +10,7 @@ export default function OneQuestion ({index, questions, correctAnswerBank, setIn
     const [userAnswerBank, setUserAnswerBank]= useState([])
     const [correct, setCorrect] = useState(false)
     const [incorrect, setIncorrect] = useState(false)
+    const [shuffled, setShuffled] = useState(false)
 
     const handleUserAnswer = (props) =>{
         let userAnswer = props
@@ -35,7 +36,6 @@ export default function OneQuestion ({index, questions, correctAnswerBank, setIn
 
     const shuffleButtons = () => {
     let buttons = document.getElementsByClassName('answerButton')
-    console.log(buttons)
     for (let i = 0; i < buttons.length; i++){
         let target = Math.floor(Math.random() * buttons.length -1) + 1;
         let target2 = Math.floor(Math.random() * buttons.length -1) +1;

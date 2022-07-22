@@ -3,6 +3,7 @@ import OneQuestion from './oneQuestion'
 
 export default function QuestionPage ({triviaQuestions, correctAnswerBank}){
 
+
     const [start, setStart] = useState(true)
     const [index, setIndex] = useState(0)
     const [correct, setCorrect] = useState(false)
