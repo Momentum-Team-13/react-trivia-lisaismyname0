@@ -33,12 +33,25 @@ export default function OneQuestion ({index, questions, correctAnswerBank, setIn
         }
     }
 
+    const shuffleButtons = () => {
+    let buttons = document.getElementsByClassName('answerButton')
+    console.log(buttons)
+    for (let i = 0; i < buttons.length; i++){
+        let target = Math.floor(Math.random() * buttons.length -1) + 1;
+        let target2 = Math.floor(Math.random() * buttons.length -1) +1;
+        buttons[target].before(buttons[target2]);
+    }}
+
+    shuffleButtons()
+
 return(
     <div> 
+    <br/>
     {currentQuestion && 
-        <div key = {currentQuestion.question}>
+        <div className="question" key = {currentQuestion.question}>
             {currentQuestion.question}
         <div>
+        <br/>
         {!answered ? (""): (
             <div className ="buttons" key ={currentQuestion.correct_answer}>
         <div className="answerButton" onClick={(e)=> handleUserAnswer(e.target.textContent)} key={currentQuestion.correct_answer}>{currentQuestion.correct_answer}</div>
@@ -53,8 +66,11 @@ return(
     {incorrect ? (<div>
 Sorry the correct answer was: {currentQuestion.correct_answer} 
     </div>): ("")}
-
+    <br/>
+    <br/>
+    <div className="nextButton">
     <button onClick={()=>handleNext()}> Next question </button>
+    </div>
     </div>    
 )
 

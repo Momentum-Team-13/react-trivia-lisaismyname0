@@ -49,7 +49,8 @@ export default function Categories(){
     },[categoryURL])
 
     return (
-    <>
+    <div className='container'>
+    <div className="categories">
     <p>Choose a Category:</p>
     <select onChange={(e)=> handleSelectedCategory(e.target.value)}>
     <option key="choose an option"> Select A Category</option>
@@ -57,12 +58,13 @@ export default function Categories(){
         <option key= {category.id} value = {category.id} id={category.id}> {category.name}</option>
     ))}
     </select>
+    </div>
 
     { selectedCategory?
 
     (<QuestionPage correctAnswerBank={correctAnswerBank} triviaQuestions={triviaQuestions}/>) : ("")}
 
-    </>
+    </div>
     );
 
 }
