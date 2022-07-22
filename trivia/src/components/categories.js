@@ -34,11 +34,11 @@ export default function Categories(){
         setUserAnswerBank(temporaryBank)
     }
 
-    const handleSelectedDifficulty = (props, categoryID) =>{
-        let difficultyLevel = props
-        setSelectedDifficulty(difficultyLevel)
-        setDifficultyURL(`https://opentdb.com/api.php?amount=10&category=${categoryID}&difficulty=${difficultyLevel}`)
-    }
+    // const handleSelectedDifficulty = (props, categoryID) =>{
+    //     let difficultyLevel = props
+    //     setSelectedDifficulty(difficultyLevel)
+    //     setDifficultyURL(`https://opentdb.com/api.php?amount=10&category=${categoryID}&difficulty=${difficultyLevel}`)
+    // }
 
     useEffect(() => {
         // to make ajax call that will return list of trivia categories that i will then use to populate my dropdown menu
@@ -56,27 +56,27 @@ export default function Categories(){
             makeCorrectAnswerBank(res.data.results)})
     },[categoryURL])
 
-    useEffect(() => {
-        // making an ajax call that uses the value of the selectedCategory as a part of the url
-        axios
-        .get(difficultyURL)
-        .then((res) => {
-            setTriviaQuestions(res.data.results)
-            makeCorrectAnswerBank(res.data.results)})
-    },[difficultyURL])
+    // useEffect(() => {
+    //     // making an ajax call that uses the value of the selectedCategory as a part of the url
+    //     axios
+    //     .get(difficultyURL)
+    //     .then((res) => {
+    //         setTriviaQuestions(res.data.results)
+    //         makeCorrectAnswerBank(res.data.results)})
+    // },[difficultyURL])
 
     return (
     <div className='container'>
     <div className="categories">
-    <p>Choose a difficulty:</p>
+    {/* <p>Choose a difficulty:</p>
     <select onChange={(e) => handleSelectedDifficulty(e.target.value)}>
         <option value=" "> Choose Your Difficulty</option>
         <option value="easy">Easy</option>
         <option value="medium">Medium</option>
         <option value="hard">Hard</option>
-    </select>
+    </select> */}
 
- and a category: 
+ Choose a category: 
     <select onChange={(e)=> handleSelectedCategory(e.target.value)}>
     <option key="choose an option"> Select A Category</option>
     {categories.map((category) => (
@@ -87,10 +87,11 @@ export default function Categories(){
     </div>
 
 
-    {/* { selectedDifficulty ? ("you chose a difficulty level: " ): ("")} */}
-    { selectedCategory &&  selectedDifficulty ?
 
-    (<div> You selected a difficulty
+    {/* { selectedCategory &&  selectedDifficulty ? */}
+    { selectedCategory ?
+
+    (<div>
         <QuestionPage correctAnswerBank={correctAnswerBank} triviaQuestions={triviaQuestions}/></div>) : ("")}
 
     </div>

@@ -69,9 +69,17 @@ Sorry the correct answer was: {currentQuestion.correct_answer}
     <br/>
     <br/>
     <div className="nextButton">
+    <QuestionCount questionCount={index+1} correctAnswerBank={correctAnswerBank}/>
     <button onClick={()=>handleNext()}> Next question </button>
     </div>
     </div>    
 )
 
+}
+
+const QuestionCount = ({questionCount, correctAnswerBank}) => {
+    let totalQuestions = correctAnswerBank.length
+    return (
+        <div> Question {questionCount} out of {totalQuestions}</div>
+    )
 }
