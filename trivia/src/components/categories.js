@@ -10,13 +10,15 @@ export default function Categories(){
     const [triviaQuestions, setTriviaQuestions] = useState([])
     const [userAnswerBank, setUserAnswerBank] = useState([])
     const [correctAnswerBank, setCorrectAnswerBank] = useState([])
+    const [selectedDifficulty, setSelectedDifficulty] = useState(null)
+    const [difficultyURL, setDifficultyURL] = useState(`https://opentdb.com/api.php?amount=10&category=${selectedCategory}&difficulty=${selectedDifficulty}`)
 
     const handleSelectedCategory=(props)=>{
     // this creates the URL based off of the ID of the category
         let categoryID = props
         setSelectedCategory(categoryID)
         setCategoryURL(`https://opentdb.com/api.php?amount=10&category=${categoryID}`)
-        
+        return {categoryID}
     }
 
     const makeCorrectAnswerBank = (props) =>{
@@ -30,6 +32,12 @@ export default function Categories(){
         let userAnswer = props
         let temporaryBank = userAnswerBank.concat(userAnswer)
         setUserAnswerBank(temporaryBank)
+    }
+
+    const handleSelectedDifficulty = (props, categoryID) =>{
+        let difficultyLevel = props
+        setSelectedDifficulty(difficultyLevel)
+        setDifficultyURL(`https://opentdb.com/api.php?amount=10&category=${categoryID}&difficulty=${difficultyLevel}`)
     }
 
     useEffect(() => {
@@ -48,21 +56,42 @@ export default function Categories(){
             makeCorrectAnswerBank(res.data.results)})
     },[categoryURL])
 
+    useEffect(() => {
+        // making an ajax call that uses the value of the selectedCategory as a part of the url
+        axios
+        .get(difficultyURL)
+        .then((res) => {
+            setTriviaQuestions(res.data.results)
+            makeCorrectAnswerBank(res.data.results)})
+    },[difficultyURL])
+
     return (
     <div className='container'>
     <div className="categories">
-    <p>Choose a Category:</p>
+    <p>Choose a difficulty:</p>
+    <select onChange={(e) => handleSelectedDifficulty(e.target.value)}>
+        <option value=" "> Choose Your Difficulty</option>
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+    </select>
+
+ and a category: 
     <select onChange={(e)=> handleSelectedCategory(e.target.value)}>
     <option key="choose an option"> Select A Category</option>
     {categories.map((category) => (
         <option key= {category.id} value = {category.id} id={category.id}> {category.name}</option>
     ))}
     </select>
+
     </div>
 
-    { selectedCategory?
 
-    (<QuestionPage correctAnswerBank={correctAnswerBank} triviaQuestions={triviaQuestions}/>) : ("")}
+    {/* { selectedDifficulty ? ("you chose a difficulty level: " ): ("")} */}
+    { selectedCategory &&  selectedDifficulty ?
+
+    (<div> You selected a difficulty
+        <QuestionPage correctAnswerBank={correctAnswerBank} triviaQuestions={triviaQuestions}/></div>) : ("")}
 
     </div>
     );
