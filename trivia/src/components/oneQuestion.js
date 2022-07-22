@@ -70,23 +70,26 @@ Sorry the correct answer was: {currentQuestion.correct_answer}
     <br/>
     <br/>
     <div className="nextButton">
-    <QuestionCount questionCount={index+1} correctAnswerBank={correctAnswerBank} handleNext={handleNext}/>
-
-    {/* { nextButton ? (<button onClick={()=>handleNext()}> Next question </button>): ("final")} */}
-
+    <QuestionCount questionCount={index+1} correctAnswerBank={correctAnswerBank} handleNext={handleNext} userAnswerBank={userAnswerBank}/>
 
     </div>
     </div>    
 )
-
 }
 
-const QuestionCount = ({questionCount, correctAnswerBank, setNextButton, nextButton, handleNext}) => {
+const QuestionCount = ({questionCount, correctAnswerBank, setNextButton, nextButton, handleNext, userAnswerBank}) => {
     let totalQuestions = correctAnswerBank.length
     console.log(questionCount)
     console.log(totalQuestions)
+    console.log(userAnswerBank.length)
+
+    if(userAnswerBank.length === totalQuestions){ return (
+        <div>
+            <FinalPage userAnswerBank={userAnswerBank} correctAnswerBank={correctAnswerBank}/>
+        </div>
+    )}
+
     if (questionCount === totalQuestions){
-        // setNextButton(false)
         return (<div> 
         Final Question</div>)
     } else {
@@ -95,3 +98,17 @@ const QuestionCount = ({questionCount, correctAnswerBank, setNextButton, nextBut
             { !nextButton ? (<button onClick={()=>handleNext()}> Next question </button>): ("final")}</div>
     )
 }}
+
+
+const FinalPage = ({userAnswerBank, correctAnswerBank}) => {
+    return(
+        <div>
+        <div>
+        <strong>These were your answers</strong> {userAnswerBank}</div>
+        <div>
+        <br/>
+        <strong>These were the correct answers</strong> {correctAnswerBank}
+        </div></div>
+    )
+
+}
