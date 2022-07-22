@@ -71,6 +71,7 @@ Sorry the correct answer was: {currentQuestion.correct_answer}
     <div className="nextButton">
     <QuestionCount questionCount={index+1} correctAnswerBank={correctAnswerBank}/>
     <button onClick={()=>handleNext()}> Next question </button>
+
     </div>
     </div>    
 )
@@ -79,7 +80,13 @@ Sorry the correct answer was: {currentQuestion.correct_answer}
 
 const QuestionCount = ({questionCount, correctAnswerBank}) => {
     let totalQuestions = correctAnswerBank.length
+    console.log(questionCount)
+    console.log(totalQuestions)
+    if (questionCount === totalQuestions){
+        return (<div> 
+        Final Question</div>)
+    } else {
     return (
         <div> Question {questionCount} out of {totalQuestions}</div>
     )
-}
+}}
