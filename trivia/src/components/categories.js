@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import QuestionPage from './questionPage'
 
+<script src="he.js"></script>
 export default function Categories(){
     const [categories, setCategories] = useState([])
     const [selectedCategory, setSelectedCategory] = useState(null)
@@ -34,11 +35,20 @@ export default function Categories(){
         setUserAnswerBank(temporaryBank)
     }
 
-    const handleSelectedDifficulty = (props, categoryID) =>{
-        let difficultyLevel = props
-        setSelectedDifficulty(difficultyLevel)
-        setCategoryURL(`https://opentdb.com/api.php?amount=10&category=${categoryID}&difficulty=${difficultyLevel}`)
-    }
+
+    const shuffleButtons = () => {
+        let buttons = document.getElementsByClassName('answerButton')
+        for (let i = 0; i < buttons.length; i++){
+            let target = Math.floor(Math.random() * buttons.length -1) + 1;
+            let target2 = Math.floor(Math.random() * buttons.length -1) +1;
+            buttons[target].before(buttons[target2]);
+        }}
+
+    // const handleSelectedDifficulty = (props, categoryID) =>{
+    //     let difficultyLevel = props
+    //     setSelectedDifficulty(difficultyLevel)
+    //     setCategoryURL(`https://opentdb.com/api.php?amount=10&category=${categoryID}&difficulty=${difficultyLevel}`)
+    // }
 
     useEffect(() => {
         // to make ajax call that will return list of trivia categories that i will then use to populate my dropdown menu
@@ -56,14 +66,14 @@ export default function Categories(){
             makeCorrectAnswerBank(res.data.results)})
     },[categoryURL])
 
-    useEffect(() => {
-        // making an ajax call that uses the value of the selectedDifficulty as a part of the url
-        axios
-        .get(difficultyURL)
-        .then((res) => {
-            setTriviaQuestions(res.data.results)
-            makeCorrectAnswerBank(res.data.results)})
-    },[difficultyURL])
+    // useEffect(() => {
+    //     // making an ajax call that uses the value of the selectedDifficulty as a part of the url
+    //     axios
+    //     .get(difficultyURL)
+    //     .then((res) => {
+    //         setTriviaQuestions(res.data.results)
+    //         makeCorrectAnswerBank(res.data.results)})
+    // },[difficultyURL])
 
     return (
     <div className='container'>
@@ -78,21 +88,21 @@ export default function Categories(){
     ))}
     </select>
 
-    <p>Choose a difficulty:</p>
+    {/* <p>Choose a difficulty:</p>
     <select onChange={(e) => handleSelectedDifficulty(e.target.value)}>
         <option value=" "> Choose Your Difficulty</option>
         <option value="easy">Easy</option>
         <option value="medium">Medium</option>
         <option value="hard">Hard</option>
-    </select>
+    </select> */}
     </div>
 
 
 
-    { selectedCategory &&  selectedDifficulty ?
-
+    {/* { selectedCategory &&  selectedDifficulty ? */}
+{ selectedCategory ?
     (<div>
-        <QuestionPage correctAnswerBank={correctAnswerBank} triviaQuestions={triviaQuestions}/></div>) : ("")}
+        <QuestionPage correctAnswerBank={correctAnswerBank} triviaQuestions={triviaQuestions} shuffleButtons={shuffleButtons}/></div>) : ("")}
 
     </div>
     );

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-export default function OneQuestion ({index, questions, correctAnswerBank, setIndex})
+export default function OneQuestion ({index, questions, correctAnswerBank, setIndex, shuffleButtons})
 {
     console.log(index, questions)
     let currentQuestion= questions[index]
@@ -35,15 +35,8 @@ export default function OneQuestion ({index, questions, correctAnswerBank, setIn
         }
     }
 
-    const shuffleButtons = () => {
-    let buttons = document.getElementsByClassName('answerButton')
-    for (let i = 0; i < buttons.length; i++){
-        let target = Math.floor(Math.random() * buttons.length -1) + 1;
-        let target2 = Math.floor(Math.random() * buttons.length -1) +1;
-        buttons[target].before(buttons[target2]);
-    }}
-
     shuffleButtons()
+
 
 return(
     <div> 
