@@ -36,7 +36,7 @@ export default function OneQuestion ({index, questions, correctAnswerBank, setIn
 return(
     <div> 
     {currentQuestion && 
-        <div>
+        <div key = {currentQuestion.question}>
             {currentQuestion.question}
         <div>
         {!answered ? (""): (
