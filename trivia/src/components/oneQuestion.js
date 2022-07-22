@@ -41,9 +41,9 @@ return(
         <div>
         {!answered ? (""): (
             <div className ="buttons" key ={currentQuestion.correct_answer}>
-        <button id="answerButton" onClick={(e)=> handleUserAnswer(e.target.textContent)} key={currentQuestion.correct_answer}>{currentQuestion.correct_answer}</button>
+        <div className="answerButton" onClick={(e)=> handleUserAnswer(e.target.textContent)} key={currentQuestion.correct_answer}>{currentQuestion.correct_answer}</div>
         {currentQuestion.incorrect_answers.map((answer) => (
-            <button id="answerButton" onClick={(e)=> handleUserAnswer(e.target.textContent)} key={answer.incorrect_answers}>{answer} </button>
+            <div className="answerButton" onClick={(e)=> handleUserAnswer(e.target.textContent)} key={answer.incorrect_answers}>{answer} </div>
         ))}</div>)}
             </div>
         </div>}

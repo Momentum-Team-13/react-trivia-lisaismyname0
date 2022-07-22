@@ -39,10 +39,11 @@
 
 .buttons{
   display: flex;
-  order: 3;
-
+  justify-content: space-around;
 }
 
-buttons{
-  order: random;
+.answerButton{
+  border: 2px black;
+  background: lightblue;
+  margin: 10 px;
 }
