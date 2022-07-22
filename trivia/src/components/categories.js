@@ -38,6 +38,7 @@ export default function Categories(){
     //     let difficultyLevel = props
     //     setSelectedDifficulty(difficultyLevel)
     //     setDifficultyURL(`https://opentdb.com/api.php?amount=10&category=${categoryID}&difficulty=${difficultyLevel}`)
+    //     console.log(difficultyURL)
     // }
 
     useEffect(() => {
@@ -56,18 +57,19 @@ export default function Categories(){
             makeCorrectAnswerBank(res.data.results)})
     },[categoryURL])
 
-    // useEffect(() => {
-    //     // making an ajax call that uses the value of the selectedCategory as a part of the url
-    //     axios
-    //     .get(difficultyURL)
-    //     .then((res) => {
-    //         setTriviaQuestions(res.data.results)
-    //         makeCorrectAnswerBank(res.data.results)})
-    // },[difficultyURL])
+    useEffect(() => {
+        // making an ajax call that uses the value of the selectedCategory as a part of the url
+        axios
+        .get(difficultyURL)
+        .then((res) => {
+            setTriviaQuestions(res.data.results)
+            makeCorrectAnswerBank(res.data.results)})
+    },[difficultyURL])
 
     return (
     <div className='container'>
     <div className="categories">
+
     {/* <p>Choose a difficulty:</p>
     <select onChange={(e) => handleSelectedDifficulty(e.target.value)}>
         <option value=" "> Choose Your Difficulty</option>

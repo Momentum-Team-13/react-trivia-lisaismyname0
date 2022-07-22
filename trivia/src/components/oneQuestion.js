@@ -10,6 +10,7 @@ export default function OneQuestion ({index, questions, correctAnswerBank, setIn
     const [userAnswerBank, setUserAnswerBank]= useState([])
     const [correct, setCorrect] = useState(false)
     const [incorrect, setIncorrect] = useState(false)
+    const [nextButton, setNextButton] = useState(true)
     const [shuffled, setShuffled] = useState(false)
 
     const handleUserAnswer = (props) =>{
@@ -69,8 +70,10 @@ Sorry the correct answer was: {currentQuestion.correct_answer}
     <br/>
     <br/>
     <div className="nextButton">
-    <QuestionCount questionCount={index+1} correctAnswerBank={correctAnswerBank}/>
-    <button onClick={()=>handleNext()}> Next question </button>
+    <QuestionCount questionCount={index+1} correctAnswerBank={correctAnswerBank} handleNext={handleNext}/>
+
+    {/* { nextButton ? (<button onClick={()=>handleNext()}> Next question </button>): ("final")} */}
+
 
     </div>
     </div>    
@@ -78,15 +81,17 @@ Sorry the correct answer was: {currentQuestion.correct_answer}
 
 }
 
-const QuestionCount = ({questionCount, correctAnswerBank}) => {
+const QuestionCount = ({questionCount, correctAnswerBank, setNextButton, nextButton, handleNext}) => {
     let totalQuestions = correctAnswerBank.length
     console.log(questionCount)
     console.log(totalQuestions)
     if (questionCount === totalQuestions){
+        // setNextButton(false)
         return (<div> 
         Final Question</div>)
     } else {
     return (
-        <div> Question {questionCount} out of {totalQuestions}</div>
+        <div> Question {questionCount} out of {totalQuestions}
+            { !nextButton ? (<button onClick={()=>handleNext()}> Next question </button>): ("final")}</div>
     )
 }}
