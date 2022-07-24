@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react'
+import he from 'he'
 
-export default function OneQuestion ({index, questions, correctAnswerBank, setIndex, shuffleButtons})
+export default function OneQuestion ({index, questions, correctAnswerBank, setIndex, shuffleButtons,})
 {
-    console.log(index, questions)
-    let currentQuestion= questions[index]
-    console.log(currentQuestion)
-
+    // console.log(index, questions)
+    const currentQuestion= questions[index]
+    
     const [answered, setAnswered] = useState(true)
     const [userAnswerBank, setUserAnswerBank]= useState([])
     const [correct, setCorrect] = useState(false)
     const [incorrect, setIncorrect] = useState(false)
     const [nextButton, setNextButton] = useState(true)
     const [shuffled, setShuffled] = useState(false)
+    const [decoded, setDecoded] = useState(false)
+    const [possibleAnswers, setPossibleAnswers] = useState([])
 
     const handleUserAnswer = (props) =>{
         let userAnswer = props
@@ -19,14 +21,29 @@ export default function OneQuestion ({index, questions, correctAnswerBank, setIn
         setUserAnswerBank(temporaryBank)
         seeIfCorrect(userAnswer)
     }
-
+    
     const handleNext = () => {
-        console.log(correctAnswerBank.length)
         setCorrect(false)
         setIncorrect(false)
         setIndex()
     }
 
+//     const BuildAnswerBank  = ({currentQuestion}) =>{
+//         let correct = currentQuestion.correct_answer
+//         let incorrects = currentQuestion.incorrect_answers
+//         let tempBank = []
+//         tempBank = tempBank.concat(correct)
+//         tempBank = tempBank.concat(incorrects)
+//         setPossibleAnswers(tempBank)
+//         return(
+// <div className ="buttons" key ={currentQuestion.correct_answer}>
+//         <div className="answerButton" onClick={(e)=> handleUserAnswer(e.target.textContent)} key={currentQuestion.correct_answer}>{currentQuestion.correct_answer}</div>
+//         {currentQuestion.incorrect_answers.map((answer) => (
+//             <div className="answerButton" onClick={(e)=> handleUserAnswer(e.target.textContent)} key={answer.incorrect_answers}>{answer} </div>
+//         ))}</div>
+//         )
+//     }
+    
     const seeIfCorrect=(userAnswer)=>{
         if(userAnswer === currentQuestion.correct_answer){
             setCorrect(true)
@@ -36,26 +53,33 @@ export default function OneQuestion ({index, questions, correctAnswerBank, setIn
     }
 
     shuffleButtons()
-
-
-return(
-    <div> 
+    
+    const decodeHtml =()=>{
+        const decodedQuestion = he.decode(currentQuestion.question)
+        // const answers = currentQuestion.map((question))
+        console.log(decodedQuestion)
+        // const decodedAnswers = he.decode(currentQuestion)
+        setDecoded(true)
+    }
+    
+    
+    return(
+        <div> 
     <br/>
     {currentQuestion && 
         <div className="question" key = {currentQuestion.question}>
             {currentQuestion.question}
+            <br/>
+            {decoded}
         <div>
         <br/>
-        {!answered ? (""): (
-            <div className ="buttons" key ={currentQuestion.correct_answer}>
-        <div className="answerButton" onClick={(e)=> handleUserAnswer(e.target.textContent)} key={currentQuestion.correct_answer}>{currentQuestion.correct_answer}</div>
-        {currentQuestion.incorrect_answers.map((answer) => (
-            <div className="answerButton" onClick={(e)=> handleUserAnswer(e.target.textContent)} key={answer.incorrect_answers}>{answer} </div>
-        ))}</div>)}
+
+        {possibleAnswers && !answered ? (""): (<div> <BuildAnswerBank currentQuestion={currentQuestion} handleUserAnswer = {handleUserAnswer} setPossibleAnswers={()=> setPossibleAnswers(possibleAnswers)} /> </div>)}
             </div>
         </div>}
 
     <div>{correct ? ("You chose the correct answer!"):("")}</div>
+
 
     {incorrect ? (<div>
 Sorry the correct answer was: {currentQuestion.correct_answer} 
@@ -64,7 +88,6 @@ Sorry the correct answer was: {currentQuestion.correct_answer}
     <br/>
     <div className="nextButton">
     <QuestionCount questionCount={index+1} correctAnswerBank={correctAnswerBank} handleNext={handleNext} userAnswerBank={userAnswerBank}/>
-
     </div>
     </div>    
 )
@@ -72,9 +95,6 @@ Sorry the correct answer was: {currentQuestion.correct_answer}
 
 const QuestionCount = ({questionCount, correctAnswerBank, setNextButton, nextButton, handleNext, userAnswerBank}) => {
     let totalQuestions = correctAnswerBank.length
-    console.log(questionCount)
-    console.log(totalQuestions)
-    console.log(userAnswerBank.length)
 
     if(userAnswerBank.length === totalQuestions){ return (
         <div>
@@ -92,7 +112,6 @@ const QuestionCount = ({questionCount, correctAnswerBank, setNextButton, nextBut
     )
 }}
 
-
 const FinalPage = ({userAnswerBank, correctAnswerBank}) => {
     return(
         <div>
@@ -103,5 +122,26 @@ const FinalPage = ({userAnswerBank, correctAnswerBank}) => {
         <strong>These were the correct answers</strong> {correctAnswerBank}
         </div></div>
     )
+}
 
+const BuildAnswerBank  = ({currentQuestion, handleUserAnswer, possibleAnswers, setPossibleAnswers,}) =>{
+
+    let correct = currentQuestion.correct_answer
+    let incorrects = currentQuestion.incorrect_answers
+    possibleAnswers = []
+    possibleAnswers = possibleAnswers.concat(correct)
+    possibleAnswers = possibleAnswers.concat(incorrects)
+    setPossibleAnswers(possibleAnswers)
+    return(
+        <div>
+            {possibleAnswers.map((answer) => (<div>{answer.correct_answer}{answer.incorrect_answers}</div>))}
+        {/* {possibleAnswers ? ("") : ("")} */}
+    <div className ="buttons" key ={currentQuestion.correct_answer}>
+    <div className="answerButton" onClick={(e)=> handleUserAnswer(e.target.textContent)} key={currentQuestion.correct_answer}>{currentQuestion.correct_answer}</div>
+    {currentQuestion.incorrect_answers.map((answer) => (
+        <div className="answerButton" onClick={(e)=> handleUserAnswer(e.target.textContent)} key={answer.incorrect_answers}>{answer} </div>
+    ))}
+
+</div></div>
+    )
 }

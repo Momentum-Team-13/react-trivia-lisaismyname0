@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import OneQuestion from './oneQuestion'
 
-export default function QuestionPage ({triviaQuestions, correctAnswerBank, shuffleButtons}){
+export default function QuestionPage ({triviaQuestions, correctAnswerBank, shuffleButtons,}){
 
 
     const [start, setStart] = useState(true)
@@ -9,8 +9,14 @@ export default function QuestionPage ({triviaQuestions, correctAnswerBank, shuff
     const [correct, setCorrect] = useState(false)
     const [incorrect, setIncorrect] = useState(false)
 
-
-
+    // const buildAnswerBank  = () =>{
+    //     let currentQuestion = triviaQuestions[index]
+    //     let correct = currentQuestion.correct_answer
+    //     let incorrects = currentQuestion.incorrect_answers
+    //     answerBank.concat(correct)
+    //     answerBank.concat(incorrects)
+    //     setAnswerBank(answerBank)
+    // }
 
 return(
 

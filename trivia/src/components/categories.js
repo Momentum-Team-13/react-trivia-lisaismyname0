@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import QuestionPage from './questionPage'
 
-<script src="he.js"></script>
 export default function Categories(){
     const [categories, setCategories] = useState([])
     const [selectedCategory, setSelectedCategory] = useState(null)
@@ -11,6 +10,7 @@ export default function Categories(){
     const [triviaQuestions, setTriviaQuestions] = useState([])
     const [userAnswerBank, setUserAnswerBank] = useState([])
     const [correctAnswerBank, setCorrectAnswerBank] = useState([])
+
     const [selectedDifficulty, setSelectedDifficulty] = useState(null)
     const [difficultyURL, setDifficultyURL] = useState(`https://opentdb.com/api.php?amount=10&category=${selectedCategory}&difficulty=${selectedDifficulty}`)
 
@@ -34,6 +34,14 @@ export default function Categories(){
         let temporaryBank = userAnswerBank.concat(userAnswer)
         setUserAnswerBank(temporaryBank)
     }
+
+    // const buildAnswerBank  = (currentQuestion) =>{
+    //     let correct = currentQuestion.correct_answer
+    //     let incorrects = currentQuestion.incorrect_answers
+    //     possibleAnswers.concat(correct)
+    //     possibleAnswers.concat(incorrects)
+    //     setPossibleAnswers(possibleAnswers)
+    // }
 
 
     const shuffleButtons = () => {
@@ -63,7 +71,8 @@ export default function Categories(){
         .get(categoryURL)
         .then((res) => {
             setTriviaQuestions(res.data.results)
-            makeCorrectAnswerBank(res.data.results)})
+            makeCorrectAnswerBank(res.data.results)
+        })
     },[categoryURL])
 
     // useEffect(() => {
