@@ -28,21 +28,6 @@ export default function OneQuestion ({index, questions, correctAnswerBank, setIn
         setIndex()
     }
 
-//     const BuildAnswerBank  = ({currentQuestion}) =>{
-//         let correct = currentQuestion.correct_answer
-//         let incorrects = currentQuestion.incorrect_answers
-//         let tempBank = []
-//         tempBank = tempBank.concat(correct)
-//         tempBank = tempBank.concat(incorrects)
-//         setPossibleAnswers(tempBank)
-//         return(
-// <div className ="buttons" key ={currentQuestion.correct_answer}>
-//         <div className="answerButton" onClick={(e)=> handleUserAnswer(e.target.textContent)} key={currentQuestion.correct_answer}>{currentQuestion.correct_answer}</div>
-//         {currentQuestion.incorrect_answers.map((answer) => (
-//             <div className="answerButton" onClick={(e)=> handleUserAnswer(e.target.textContent)} key={answer.incorrect_answers}>{answer} </div>
-//         ))}</div>
-//         )
-//     }
     
     const seeIfCorrect=(userAnswer)=>{
         if(userAnswer === currentQuestion.correct_answer){
@@ -64,15 +49,12 @@ export default function OneQuestion ({index, questions, correctAnswerBank, setIn
     
     
     return(
-        <div> 
+        <div className="card"> 
     <br/>
     {currentQuestion && 
         <div className="question" key = {currentQuestion.question}>
             {currentQuestion.question}
-            <br/>
-            {decoded}
         <div>
-        <br/>
 
         {possibleAnswers && !answered ? (""): (<div> <BuildAnswerBank currentQuestion={currentQuestion} handleUserAnswer = {handleUserAnswer} setPossibleAnswers={()=> setPossibleAnswers(possibleAnswers)} /> </div>)}
             </div>
@@ -134,8 +116,6 @@ const BuildAnswerBank  = ({currentQuestion, handleUserAnswer, possibleAnswers, s
     setPossibleAnswers(possibleAnswers)
     return(
         <div>
-            {possibleAnswers.map((answer) => (<div>{answer.correct_answer}{answer.incorrect_answers}</div>))}
-        {/* {possibleAnswers ? ("") : ("")} */}
     <div className ="buttons" key ={currentQuestion.correct_answer}>
     <div className="answerButton" onClick={(e)=> handleUserAnswer(e.target.textContent)} key={currentQuestion.correct_answer}>{currentQuestion.correct_answer}</div>
     {currentQuestion.incorrect_answers.map((answer) => (
