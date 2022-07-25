@@ -8,7 +8,7 @@ export default function OneQuestion({
   correctAnswerBank,
   setIndex,
   shuffleButtons,
-  setStart
+  setStart,
 }) {
   // console.log(index, questions)
   const currentQuestion = questions[index];
@@ -141,10 +141,10 @@ const QuestionCount = ({
 };
 
 const FinalPage = ({ userAnswerBank, correctAnswerBank }) => {
-    const startOver = () =>{
-        console.log("they wanna restart")
-        document.location.reload()
-      }    
+  const startOver = () => {
+    console.log("they wanna restart");
+    document.location.reload();
+  };
   return (
     <div className="finalAnswers">
       <div>
@@ -162,7 +162,7 @@ const FinalPage = ({ userAnswerBank, correctAnswerBank }) => {
         {correctAnswerBank.map((answer) => (
           <li key={answer}>{answer}</li>
         ))}
-        <button onClick={()=> startOver()}>Start Over</button> 
+        <button onClick={() => startOver()}>Start Over</button>
       </div>
     </div>
   );
@@ -196,7 +196,7 @@ const BuildAnswerBank = ({
             onClick={(e) => handleUserAnswer(e.target.textContent)}
             key={answer}
           >
-            {he.decode(answer)}{" "}
+            {he.decode(answer)}
           </div>
         ))}
       </div>
