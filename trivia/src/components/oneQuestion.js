@@ -35,7 +35,7 @@ export default function OneQuestion({
   };
 
   const seeIfCorrect = (userAnswer) => {
-    if (userAnswer === currentQuestion.correct_answer) {
+    if (he.decode(userAnswer) === he.decode(currentQuestion.correct_answer)) {
       setCorrect(true);
       setRightCount(rightCount + 1);
     } else {
@@ -74,7 +74,7 @@ export default function OneQuestion({
 
       {incorrect ? (
         <div className="result">
-          Sorry the correct answer was:{" "}
+          Sorry the correct answer was:
           {he.decode(currentQuestion.correct_answer)}
         </div>
       ) : (
