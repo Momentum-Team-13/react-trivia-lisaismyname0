@@ -12,7 +12,6 @@ export default function OneQuestion ({index, questions, correctAnswerBank, setIn
     const [incorrect, setIncorrect] = useState(false)
     const [nextButton, setNextButton] = useState(true)
     const [shuffled, setShuffled] = useState(false)
-    const [decoded, setDecoded] = useState(false)
     const [possibleAnswers, setPossibleAnswers] = useState([])
     const [rightCount, setRightCount] = useState(0)
     const [wrongCount, setWrongCount] = useState(0)
@@ -29,7 +28,6 @@ export default function OneQuestion ({index, questions, correctAnswerBank, setIn
         setIncorrect(false)
         setIndex()
     }
-
     
     const seeIfCorrect=(userAnswer)=>{
         if(userAnswer === currentQuestion.correct_answer){
@@ -49,7 +47,7 @@ export default function OneQuestion ({index, questions, correctAnswerBank, setIn
     <br/>
     {currentQuestion &&
         <div className="question" key = {currentQuestion.question}>
-            {currentQuestion.question}
+        {he.decode(currentQuestion.question)}
 
         {possibleAnswers && !answered ? (""): (<div> <BuildAnswerBank currentQuestion={currentQuestion} handleUserAnswer = {handleUserAnswer} setPossibleAnswers={()=> setPossibleAnswers(possibleAnswers)} /> </div>)}
         </div>}
@@ -116,9 +114,9 @@ const BuildAnswerBank  = ({currentQuestion, handleUserAnswer, possibleAnswers, s
         <>
     <div className ="buttons" key ={currentQuestion.correct_answer}>
 
-        <div className="answerButton" onClick={(e)=> handleUserAnswer(e.target.textContent)} key={currentQuestion.correct_answer}>{currentQuestion.correct_answer}</div>
+        <div className="answerButton" onClick={(e)=> handleUserAnswer(e.target.textContent)} key={currentQuestion.correct_answer}>{he.decode(currentQuestion.correct_answer)}</div>
         {currentQuestion.incorrect_answers.map((answer) => (
-            <div className="answerButton" onClick={(e)=> handleUserAnswer(e.target.textContent)} key={answer}>{answer} </div>
+            <div className="answerButton" onClick={(e)=> handleUserAnswer(e.target.textContent)} key={answer}>{he.decode(answer)} </div>
         ))}
 
 </div></>
