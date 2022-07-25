@@ -8,7 +8,6 @@ export default function OneQuestion({
   correctAnswerBank,
   setIndex,
   shuffleButtons,
-  setStart,
 }) {
   // console.log(index, questions)
   const currentQuestion = questions[index];
@@ -75,7 +74,8 @@ export default function OneQuestion({
 
       {incorrect ? (
         <div className="result">
-          Sorry the correct answer was: {currentQuestion.correct_answer}
+          Sorry the correct answer was:{" "}
+          {he.decode(currentQuestion.correct_answer)}
         </div>
       ) : (
         ""
@@ -142,7 +142,6 @@ const QuestionCount = ({
 
 const FinalPage = ({ userAnswerBank, correctAnswerBank }) => {
   const startOver = () => {
-    console.log("they wanna restart");
     document.location.reload();
   };
   return (
