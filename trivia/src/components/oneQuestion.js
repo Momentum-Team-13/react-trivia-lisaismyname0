@@ -15,7 +15,6 @@ export default function OneQuestion({
   const [userAnswerBank, setUserAnswerBank] = useState([]);
   const [correct, setCorrect] = useState(false);
   const [incorrect, setIncorrect] = useState(false);
-  const [nextButton, setNextButton] = useState(true);
   const [shuffled, setShuffled] = useState(false);
   const [possibleAnswers, setPossibleAnswers] = useState([]);
   const [rightCount, setRightCount] = useState(0);

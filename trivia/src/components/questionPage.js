@@ -7,8 +7,6 @@ export default function QuestionPage({
   shuffleButtons,
 }) {
   const [index, setIndex] = useState(0);
-  const [correct, setCorrect] = useState(false);
-  const [incorrect, setIncorrect] = useState(false);
 
   return (
     <>
