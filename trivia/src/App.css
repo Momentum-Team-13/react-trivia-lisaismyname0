@@ -46,7 +46,9 @@
 }
 
 .answerButton{
-  border: 2px black;
+  margin-top: 15px;
+  border: 1px solid black;
+  box-shadow: #282c34 1px 1px;
   background: #1d4289;
 }
 
@@ -77,4 +79,14 @@
   border: 2px solid black;
   width: 600px;
   border-radius: 15px;
+  background: lightgray;
+}
+
+.result {
+  margin-top: 10px;
+  background: white;
+}
+
+.finalAnswers{
+  display: inline-flex;
 }

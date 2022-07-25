@@ -9,30 +9,21 @@ export default function QuestionPage ({triviaQuestions, correctAnswerBank, shuff
     const [correct, setCorrect] = useState(false)
     const [incorrect, setIncorrect] = useState(false)
 
-    // const buildAnswerBank  = () =>{
-    //     let currentQuestion = triviaQuestions[index]
-    //     let correct = currentQuestion.correct_answer
-    //     let incorrects = currentQuestion.incorrect_answers
-    //     answerBank.concat(correct)
-    //     answerBank.concat(incorrects)
-    //     setAnswerBank(answerBank)
-    // }
-
 return(
 
-    <div>
-    { start ? (<div>
+    <>
+    { start ? (<>
         <Index index={index}/>
+        
         <OneQuestion index={index} questions ={triviaQuestions} setIndex={() => setIndex(index+1)} correctAnswerBank={correctAnswerBank} shuffleButtons={shuffleButtons}/>
-    </div>) : ("Goodbye") }
+    </>) : ("Goodbye") }
 
-    </div>
+    </>
 )
 }
 
 const Index = ({index}) => {
     return(
     <></>
-
     )
 }

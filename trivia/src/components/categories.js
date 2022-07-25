@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import QuestionPage from './questionPage'
+import he from 'he'
 
 export default function Categories(){
     const [categories, setCategories] = useState([])
@@ -35,14 +36,6 @@ export default function Categories(){
         setUserAnswerBank(temporaryBank)
     }
 
-    // const buildAnswerBank  = (currentQuestion) =>{
-    //     let correct = currentQuestion.correct_answer
-    //     let incorrects = currentQuestion.incorrect_answers
-    //     possibleAnswers.concat(correct)
-    //     possibleAnswers.concat(incorrects)
-    //     setPossibleAnswers(possibleAnswers)
-    // }
-
 
     const shuffleButtons = () => {
         let buttons = document.getElementsByClassName('answerButton')
@@ -62,7 +55,9 @@ export default function Categories(){
         // to make ajax call that will return list of trivia categories that i will then use to populate my dropdown menu
         axios
         .get('https://opentdb.com/api_category.php')
-        .then((res) => setCategories(res.data.trivia_categories))
+        .then((res) => {
+            let categories = res.data.trivia_categories
+            setCategories(categories)})
     },[])
 
     useEffect(() => {
@@ -89,7 +84,7 @@ export default function Categories(){
     <div className="categories">
 
 
- Choose a category: 
+    <>Choose a category: </>
     <select onChange={(e)=> handleSelectedCategory(e.target.value)}>
     <option key="choose an option"> Select A Category</option>
     {categories.map((category) => (
@@ -110,8 +105,8 @@ export default function Categories(){
 
     {/* { selectedCategory &&  selectedDifficulty ? */}
 { selectedCategory ?
-    (<div>
-        <QuestionPage correctAnswerBank={correctAnswerBank} triviaQuestions={triviaQuestions} shuffleButtons={shuffleButtons}/></div>) : ("")}
+    (<>
+        <QuestionPage correctAnswerBank={correctAnswerBank} triviaQuestions={triviaQuestions} shuffleButtons={shuffleButtons}/></>) : ("")}
 
     </div>
     );
